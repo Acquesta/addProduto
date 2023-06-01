@@ -1,0 +1,19 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Meu primeiro APP
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <ion-item>
+    <ion-label position="floating">Digite o primeiro número</ion-label>
+    <ion-input [(ngModel)]="n1" type="number"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Digite o segundo número</ion-label>
+    <ion-input [(ngModel)]="n2" type="number"></ion-input>
+  </ion-item>
+  <ion-button expand="block" (click)="somar()">Somar</ion-button>
+  <ion-input [readonly]="true" value={{res}}></ion-input>
+</ion-content>
