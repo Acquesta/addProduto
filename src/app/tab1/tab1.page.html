@@ -20,6 +20,8 @@
 
   <ion-button expand="block" (click)="addProduto()">ADICIONAR</ion-button>
 
+  <h2>Produtos: {{listaProduto.length}}</h2>
+
   <div *ngFor="let produto of listaProduto">
 
     <ion-card *ngIf=" produto.nome">
@@ -31,12 +33,11 @@
         Quantidade: {{produto.quantidade}}
       </ion-card-content>
 
-      <ion-button id="present-alert" (click)="exibirAlerta()">Editar produto</ion-button>
+      <ion-button id="present-alert" (click)="exibirAlerta(produto.nome, produto.quantidade, produto)">Editar produto</ion-button>
+      <ion-button (click)="excluirProduto(produto)" color="danger">Excluir</ion-button>
     </ion-card>
 
     <ion-toast trigger="open-toast" message="This toast will disappear after 5 seconds" [duration]="5000"></ion-toast>
-
-
 
   </div>
 

@@ -1,4 +1,4 @@
-import { Component, NgModule } from '@angular/core';
+import { Component, NgModule, Input } from '@angular/core';
 import { IProdutos } from '../modules/IProdutos';
 import { ToastController, AlertController  } from '@ionic/angular';
 @Component({
@@ -25,34 +25,67 @@ export class Tab1Page {
         quantidade: this.quantidade
       }
     )
-
-    this.exibirToast()
-
+    this.exibirToast('Você adicionou ')
   }
 
-  listaProduto: IProdutos[] = [{}];
+  editarProduto(produto:any, nome: any, quantidade:any ){
+    produto.nome = nome
+    produto.quantidade = quantidade
+  }
 
+  excluirProduto(produto:any){
 
-  async exibirToast() {
+    this.listaProduto.forEach((produtos) => {
+      if(produtos == produto){
+        var item = this.listaProduto.indexOf(produto)
+        this.listaProduto.splice(item, 1)
+        console.log('Seu produto foi excluido')
+      }
+    })
+    
+  }
+    
+  listaProduto: IProdutos[] = [];
+
+  async exibirToast(mensagem: any) {
     const toast = await this.toastController.create({
-      message: 'Você adicionou ' + this.nome,
+      message: mensagem + this.nome,
       duration: 2000,
       color: "success"
     });
     toast.present();
   }
 
-  async exibirAlerta() {
+  async exibirAlerta(nome: any, quantidade: any, produto: any) {
     const alert = await this.alertController.create({
-      header: 'Editar Produto',
-      message: 'Editar produto',
+      header: 'Editar ' + nome,
+      message: 'Edite o produto',
       inputs: [
         {
           type:'text',
-          placeholder:'titulo'
+          name: 'nomeProduto',
+          value:nome
+        },
+        {
+          type: 'number',
+          name: 'quantidadeProduto',
+          value: quantidade
         }
       ],
-      buttons: ['OK']
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: () => {
+            console.log('cancelou a edição')
+          }
+        },
+        {
+          text: 'Confirmar',
+          handler: data  => {
+            this.editarProduto(produto, data.nomeProduto, data.quantidadeProduto)
+          }
+        }
+      ]
     });
     alert.present();
   }
