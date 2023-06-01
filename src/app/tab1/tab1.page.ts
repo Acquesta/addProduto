@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { IProdutos } from '../modules/IProdutos';
-import { ToastController } from '@ionic/angular';
+import { ToastController, AlertController  } from '@ionic/angular';
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
@@ -14,7 +14,9 @@ export class Tab1Page {
   produto: string = '';
   descricao = 'Descrição do produto';
 
-  constructor(public toastController: ToastController) {}
+  constructor(public toastController: ToastController,
+    public alertController: AlertController
+    ) {}
 
   addProduto() {
     this.listaProduto.push(
@@ -25,6 +27,7 @@ export class Tab1Page {
     )
 
     this.exibirToast()
+
   }
 
   listaProduto: IProdutos[] = [{}];
@@ -37,5 +40,20 @@ export class Tab1Page {
       color: "success"
     });
     toast.present();
+  }
+
+  async exibirAlerta() {
+    const alert = await this.alertController.create({
+      header: 'Editar Produto',
+      message: 'Editar produto',
+      inputs: [
+        {
+          type:'text',
+          placeholder:'titulo'
+        }
+      ],
+      buttons: ['OK']
+    });
+    alert.present();
   }
 }

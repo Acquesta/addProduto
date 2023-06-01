@@ -30,9 +30,13 @@
       <ion-card-content>
         Quantidade: {{produto.quantidade}}
       </ion-card-content>
+
+      <ion-button id="present-alert" (click)="exibirAlerta()">Editar produto</ion-button>
     </ion-card>
 
     <ion-toast trigger="open-toast" message="This toast will disappear after 5 seconds" [duration]="5000"></ion-toast>
+
+
 
   </div>
 
